@@ -43,7 +43,7 @@ def feedForward(Nurons, imputs):
     outputs = []
     num_of_nurons = len(Nurons)
     for x in range (0,num_of_nurons):
-        outputs[x] = Nurons[x].produceOutput(imputs)
+        outputs.append(Nurons[x].produceOutput(imputs))
     return outputs
 
 
@@ -74,7 +74,7 @@ def main():
         NextImput = []
         while NeuronList[z]:
             if z == 0:
-                NextImput = feedForward(NeuronList[z], X_test[a])
+                NextImput = feedForward(NeuronList[z], X_train[a])
             else:
                 NextImput = feedForward(NeuronList[z], NextImput)
             z += 1
@@ -84,8 +84,7 @@ def main():
             if NextImput[b] > max:
                 max = NextImput[b]
                 nodeNum = b
-        print("This is a clasification of :")
-        print (nodeNum)
+        print("This is a clasification {}".format(nodeNum))
 
 
 
@@ -121,6 +120,22 @@ def main():
         numnodes = int(input("how many nodes do you want this layer of the pima data set"))
         for y in range (0, numnodes):
             NeuronList[x].append(Neuron(X_test[0]))
+    for a in range (0, len(X_train)):
+        z = 0
+        NextImput = []
+        while NeuronList[z]:
+            if z == 0:
+                NextImput = feedForward(NeuronList[z], X_train[a])
+            else:
+                NextImput = feedForward(NeuronList[z], NextImput)
+            z += 1
+        max = 0
+        nodeNum = 0
+        for b in range (0, len(NextImput)):
+            if NextImput[b] > max:
+                max = NextImput[b]
+                nodeNum = b
+        print("This is a clasification {}".format(nodeNum))
 
 
 
